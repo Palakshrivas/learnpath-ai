@@ -1,0 +1,738 @@
+/* =====================================================
+   MY LEARNING PATH — PREMIUM UI
+===================================================== */
+
+.learning-page {
+  min-height: 100%;
+  padding: 34px 38px 60px;
+
+  color: #e9ebf4;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.learning-hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 28px;
+}
+
+.learning-eyebrow {
+  margin-bottom: 9px;
+
+  color: #8b5cf6;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+}
+
+.learning-hero h1 {
+  margin: 0;
+
+  color: #f5f7ff;
+
+  font-size: 30px;
+  font-weight: 700;
+
+  letter-spacing: -0.8px;
+}
+
+.learning-hero p {
+  max-width: 560px;
+
+  margin: 9px 0 0;
+
+  color: #737b91;
+
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.generate-learning-btn {
+  flex-shrink: 0;
+
+  padding: 12px 18px;
+
+  border: 1px solid #694bb0;
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7044c7,
+      #6049c9
+    );
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 22px rgba(99, 70, 180, 0.18);
+
+  transition: 0.2s ease;
+}
+
+.generate-learning-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 12px 28px rgba(99, 70, 180, 0.27);
+}
+
+.generate-learning-btn:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.learning-error {
+  margin-bottom: 20px;
+
+  padding: 12px 15px;
+
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  border-radius: 10px;
+
+  background: rgba(127, 29, 29, 0.12);
+
+  color: #fca5a5;
+
+  font-size: 11px;
+}
+
+/* =====================================================
+   OVERVIEW CARDS
+===================================================== */
+
+.learning-overview {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+.learning-overview-card {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+
+  padding: 17px;
+
+  border: 1px solid #292d40;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.015),
+      transparent
+    ),
+    #111522;
+
+  transition: 0.2s ease;
+}
+
+.learning-overview-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #39334e;
+}
+
+.overview-icon {
+  width: 39px;
+  height: 39px;
+
+  flex-shrink: 0;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+}
+
+.overview-icon.purple {
+  background: rgba(124, 58, 237, 0.13);
+  color: #a78bfa;
+}
+
+.overview-icon.green {
+  background: rgba(34, 197, 94, 0.1);
+  color: #4ade80;
+}
+
+.overview-icon.blue {
+  background: rgba(59, 130, 246, 0.1);
+  color: #60a5fa;
+}
+
+.learning-overview-card span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #626a80;
+
+  font-size: 9px;
+}
+
+.learning-overview-card strong {
+  display: block;
+
+  color: #e6e8f1;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* =====================================================
+   PROGRESS CARD
+===================================================== */
+
+.learning-progress-card {
+  margin-bottom: 28px;
+
+  padding: 20px;
+
+  border: 1px solid #292d40;
+  border-radius: 15px;
+
+  background: #111522;
+}
+
+.learning-progress-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 14px;
+}
+
+.section-label {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #777f94;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 1.4px;
+}
+
+.learning-progress-header h2 {
+  margin: 0;
+
+  color: #e8eaf2;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.learning-progress-header strong {
+  color: #a78bfa;
+
+  font-size: 20px;
+}
+
+.learning-progress-track {
+  width: 100%;
+  height: 7px;
+
+  overflow: hidden;
+
+  border-radius: 20px;
+
+  background: #202437;
+}
+
+.learning-progress-fill {
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #7c3aed,
+      #8b5cf6
+    );
+
+  box-shadow:
+    0 0 12px rgba(124, 58, 237, 0.28);
+
+  transition: width 0.5s ease;
+}
+
+/* =====================================================
+   ROADMAP HEADING
+===================================================== */
+
+.roadmap-section {
+  margin-top: 10px;
+}
+
+.roadmap-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 20px;
+}
+
+.roadmap-heading h2 {
+  margin: 0;
+
+  color: #f0f1f7;
+
+  font-size: 19px;
+}
+
+.roadmap-heading p {
+  margin: 7px 0 0;
+
+  color: #697187;
+
+  font-size: 10px;
+}
+
+.roadmap-count {
+  padding: 7px 11px;
+
+  border: 1px solid #302c45;
+  border-radius: 20px;
+
+  color: #a78bfa;
+
+  background: rgba(124, 58, 237, 0.06);
+
+  font-size: 9px;
+  font-weight: 600;
+}
+
+/* =====================================================
+   ROADMAP
+===================================================== */
+
+.roadmap {
+  position: relative;
+
+  max-width: 900px;
+}
+
+.roadmap-item {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns: 54px 1fr;
+
+  gap: 17px;
+
+  min-height: 108px;
+}
+
+/* =====================================================
+   ROADMAP NODE
+===================================================== */
+
+.roadmap-node {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+}
+
+.roadmap-number {
+  width: 39px;
+  height: 39px;
+
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  margin-top: 18px;
+
+  border: 1px solid #403765;
+  border-radius: 11px;
+
+  background: #17172a;
+
+  color: #a78bfa;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.roadmap-connector {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  left: 26px;
+
+  width: 1px;
+
+  background: #2c3042;
+}
+
+/* =====================================================
+   ROADMAP CONTENT
+===================================================== */
+
+.roadmap-content {
+  margin-bottom: 13px;
+
+  padding: 17px 18px;
+
+  border: 1px solid #292d40;
+  border-radius: 14px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.012),
+      transparent
+    ),
+    #111522;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.roadmap-content:hover {
+  transform: translateX(3px);
+
+  border-color: #40395a;
+
+  background: #141827;
+}
+
+.roadmap-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.roadmap-step {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #626a80;
+
+  font-size: 8px;
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+}
+
+.roadmap-content h3 {
+  margin: 0;
+
+  color: #e9ebf4;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.roadmap-content p {
+  margin: 8px 0 0;
+
+  color: #697187;
+
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.roadmap-status {
+  flex-shrink: 0;
+
+  padding: 5px 9px;
+
+  border-radius: 20px;
+
+  background: #191d2b;
+
+  color: #70788d;
+
+  font-size: 8px;
+  font-weight: 600;
+}
+
+/* =====================================================
+   COMPLETED
+===================================================== */
+
+.roadmap-item.completed .roadmap-number {
+  border-color: rgba(74, 222, 128, 0.3);
+
+  background: rgba(34, 197, 94, 0.1);
+
+  color: #4ade80;
+}
+
+.roadmap-item.completed .roadmap-content {
+  border-color: rgba(74, 222, 128, 0.16);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(34, 197, 94, 0.045),
+      transparent
+    ),
+    #111522;
+}
+
+.roadmap-item.completed .roadmap-status {
+  background: rgba(34, 197, 94, 0.1);
+
+  color: #4ade80;
+}
+
+.roadmap-item.completed .roadmap-connector {
+  background: #356e4e;
+}
+
+/* =====================================================
+   CURRENT
+===================================================== */
+
+.roadmap-item.current .roadmap-number {
+  border-color: #7155aa;
+
+  background: rgba(124, 58, 237, 0.14);
+
+  color: #c4b5fd;
+
+  box-shadow:
+    0 0 0 5px rgba(124, 58, 237, 0.055);
+}
+
+.roadmap-item.current .roadmap-content {
+  border-color: rgba(124, 58, 237, 0.35);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(124, 58, 237, 0.08),
+      transparent
+    ),
+    #111522;
+}
+
+.roadmap-item.current .roadmap-status {
+  background: rgba(124, 58, 237, 0.12);
+
+  color: #b9a5f8;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-learning-path {
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 30px;
+
+  border: 1px dashed #30354a;
+  border-radius: 16px;
+
+  text-align: center;
+
+  background: #111522;
+}
+
+.empty-learning-icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 14px;
+
+  border-radius: 13px;
+
+  background: rgba(124, 58, 237, 0.11);
+
+  color: #a78bfa;
+
+  font-size: 19px;
+}
+
+.empty-learning-path h3 {
+  margin: 0;
+
+  color: #e8eaf2;
+
+  font-size: 14px;
+}
+
+.empty-learning-path p {
+  margin: 7px 0 16px;
+
+  color: #697187;
+
+  font-size: 10px;
+}
+
+.empty-generate-btn {
+  padding: 10px 15px;
+
+  border: 1px solid #4c3b78;
+  border-radius: 9px;
+
+  background: rgba(124, 58, 237, 0.09);
+
+  color: #b9a5f8;
+
+  font-size: 10px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.empty-generate-btn:hover {
+  background: rgba(124, 58, 237, 0.16);
+
+  border-color: #7659ad;
+}
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.learning-loading {
+  min-height: 70vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 13px;
+}
+
+.learning-loading p {
+  margin: 0;
+
+  color: #737b91;
+
+  font-size: 11px;
+}
+
+.learning-spinner {
+  width: 30px;
+  height: 30px;
+
+  border: 2px solid #292d40;
+  border-top-color: #8b5cf6;
+
+  border-radius: 50%;
+
+  animation: learningSpin 0.8s linear infinite;
+}
+
+@keyframes learningSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 850px) {
+
+  .learning-page {
+    padding: 25px 22px 45px;
+  }
+
+  .learning-hero {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .learning-overview {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .learning-page {
+    padding: 20px 15px 35px;
+  }
+
+  .learning-hero h1 {
+    font-size: 25px;
+  }
+
+  .generate-learning-btn {
+    width: 100%;
+  }
+
+  .roadmap-item {
+    grid-template-columns: 42px 1fr;
+
+    gap: 10px;
+  }
+
+  .roadmap-number {
+    width: 34px;
+    height: 34px;
+  }
+
+  .roadmap-connector {
+    left: 21px;
+  }
+
+  .roadmap-top {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+}

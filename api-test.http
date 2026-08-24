@@ -31,3 +31,11 @@ GET http://localhost:8080/api/progress/1
 
 ### Mark Topic Completed
 POST http://localhost:8080/api/progress/1?topic=Spring%20Boot&completed=true
+
+### AI Assistant - Java
+POST http://localhost:8080/api/ai/ask
+Content-Type: application/json
+
+{
+  "message": "Java ka roadmap batao"
+}

@@ -1,0 +1,254 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Arial, sans-serif;
+  background: #090b14;
+  color: #f5f7ff;
+}
+
+.page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.15), transparent 30%),
+    radial-gradient(circle at 15% 30%, rgba(139, 92, 246, 0.10), transparent 25%),
+    #090b14;
+}
+
+.navbar {
+  height: 70px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #202334;
+  background: rgba(9, 11, 20, 0.85);
+}
+
+.logo {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.logo span {
+  color: #8b5cf6;
+  margin-right: 8px;
+}
+
+.nav-status {
+  color: #9ca3b5;
+  font-size: 14px;
+}
+
+.container {
+  width: min(1050px, 92%);
+  margin: 0 auto;
+  padding: 60px 0 80px;
+}
+
+.hero {
+  max-width: 700px;
+  margin-bottom: 38px;
+}
+
+.eyebrow {
+  color: #8b5cf6;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5vw, 58px);
+  line-height: 1.05;
+  margin: 0 0 18px;
+  letter-spacing: -2px;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #8b5cf6, #6366f1);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.hero p:last-child {
+  color: #9ca3b5;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.profile-card {
+  background: rgba(20, 23, 37, 0.92);
+  border: 1px solid #292d42;
+  border-radius: 20px;
+  padding: 34px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #292d42;
+}
+
+.card-header h2 {
+  margin: 0 0 7px;
+  font-size: 25px;
+}
+
+.card-header p {
+  margin: 0;
+  color: #8f96aa;
+}
+
+.step {
+  color: #777f96;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.step strong {
+  color: #a78bfa;
+}
+
+.section-title {
+  margin: 30px 0 18px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.section-title span {
+  color: #8b5cf6;
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #cbd0df;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 10px;
+  border: 1px solid #30354b;
+  background: #0f1220;
+  color: #f5f7ff;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #626a80;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+}
+
+.field textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.form-footer {
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #292d42;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.form-footer p {
+  color: #727a91;
+  font-size: 12px;
+  line-height: 1.6;
+  max-width: 430px;
+}
+
+.form-footer button {
+  border: none;
+  border-radius: 10px;
+  padding: 14px 22px;
+  background: linear-gradient(90deg, #7c3aed, #6366f1);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+.form-footer button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.25);
+}
+
+.form-footer button span {
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+@media (max-width: 700px) {
+  .container {
+    padding-top: 35px;
+  }
+
+  .navbar {
+    padding: 0 5%;
+  }
+
+  .nav-status {
+    display: none;
+  }
+
+  .profile-card {
+    padding: 22px;
+  }
+
+  .card-header {
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-footer button {
+    width: 100%;
+  }
+}

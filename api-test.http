@@ -1,0 +1,33 @@
+### Create Learner
+POST http://localhost:8080/api/learners
+Content-Type: application/json
+
+{
+  "name": "Palak",
+  "email": "palak@example.com",
+  "experienceLevel": "Intermediate",
+  "careerGoal": "Java Full Stack Developer",
+  "interests": "Backend, Web Development, AI",
+  "currentSkills": "Java, SQL, HTML, CSS",
+  "weeklyLearningHours": 10,
+  "targetDurationMonths": 6
+}
+### Get All Learners
+GET http://localhost:8080/api/learners
+### Get Learner By ID
+GET http://localhost:8080/api/learners/1
+
+### Generate Learning Path
+GET http://localhost:8080/api/learning-path/generate/1
+
+### Skill Gap Analysis
+GET http://localhost:8080/api/skill-gap/1
+
+### Get Recommendations
+GET http://localhost:8080/api/recommendations/1
+
+### Get Progress
+GET http://localhost:8080/api/progress/1
+
+### Mark Topic Completed
+POST http://localhost:8080/api/progress/1?topic=Spring%20Boot&completed=true

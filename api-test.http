@@ -1,10 +1,12 @@
 ### Create Learner
+
 POST http://localhost:8080/api/learners
 Content-Type: application/json
 
 {
-  "name": "Palak",
-  "email": "palak@example.com",
+  "name": "Test User",
+  "email": "testuser@gmail.com",
+  "password": "Test@12345",
   "experienceLevel": "Intermediate",
   "careerGoal": "Java Full Stack Developer",
   "interests": "Backend, Web Development, AI",
@@ -39,3 +41,16 @@ Content-Type: application/json
 {
   "message": "Java ka roadmap batao"
 }
+
+### Login
+POST http://localhost:8080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "testuser@gmail.com",
+  "password": "Test@12345"
+}
+
+### Health Test
+GET http://localhost:8080/api/health
+Authorization: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0dXNlckBnbWFpbC5jb20iLCJsZWFybmVySWQiOjQsInJvbGUiOiJMRUFSTkVSIiwiaWF0IjoxNzg3Njc1MTA2LCJleHAiOjE3ODc3NjE1MDZ9.3lYo1UEppCc9nPYWxCl9FN2HyFRFvIyC3YGCyGpToPQ"

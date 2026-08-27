@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import "./LearningDetail.css";
 
 const API_BASE = "http://localhost:8080";
-const LEARNER_ID = 1;
 
-function LearningDetail({ skill, onBack }) {
+
+function LearningDetail({ skill, onBack,learnerId }) {
   const [loading, setLoading] = useState(true);
   const [completed, setCompleted] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [learningData, setLearningData] = useState(null);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     loadLearningDetails();
@@ -16,18 +19,26 @@ function LearningDetail({ skill, onBack }) {
   const loadLearningDetails = async () => {
     try {
       setLoading(true);
+      setError("");
+      setSuccess("");
 
-      /*
-       * We keep the endpoint flexible for now.
-       * If the backend endpoint is not available,
-       * the professional fallback roadmap is shown.
-       */
-      const response = await fetch(
-        `${API_BASE}/api/recommendations/${LEARNER_ID}`
-      );
+      const [recommendationResponse, progressResponse] =
+        await Promise.all([
+          fetch(
+            `${API_BASE}/api/recommendations/${learnerId}`
+          ),
+          fetch(
+            `${API_BASE}/api/progress/${learnerId}`
+          ),
+        ]);
 
-      if (response.ok) {
-        const data = await response.json();
+      /* =========================
+         LOAD RECOMMENDATION
+      ========================== */
+
+      if (recommendationResponse.ok) {
+        const data =
+          await recommendationResponse.json();
 
         const selected = Array.isArray(data)
           ? data.find((item) => {
@@ -45,14 +56,44 @@ function LearningDetail({ skill, onBack }) {
 
         setLearningData(selected);
       }
+
+      /* =========================
+         LOAD EXISTING PROGRESS
+      ========================== */
+
+      if (progressResponse.ok) {
+        const progressData =
+          await progressResponse.json();
+
+        if (Array.isArray(progressData)) {
+          const existingProgress =
+            progressData.find(
+              (item) => item.topic === skill
+            );
+
+          if (
+            existingProgress &&
+            existingProgress.completed
+          ) {
+            setCompleted(true);
+          } else {
+            setCompleted(false);
+          }
+        }
+      }
     } catch (error) {
-      console.log(
-        "Using personalized learning roadmap."
+      console.error(error);
+      setError(
+        "Unable to load your learning track."
       );
     } finally {
       setLoading(false);
     }
   };
+
+  /* =========================
+     LEARNING ROADMAP
+  ========================== */
 
   const roadmap = [
     {
@@ -81,15 +122,65 @@ function LearningDetail({ skill, onBack }) {
     },
   ];
 
-  const handleComplete = () => {
-    setCompleted(true);
+  /* =========================
+     MARK COMPLETE
+  ========================== */
+
+  const handleComplete = async () => {
+    try {
+      setSaving(true);
+      setError("");
+      setSuccess("");
+
+      const response = await fetch(
+        `${API_BASE}/api/progress/${learnerId}?topic=${encodeURIComponent(
+          skill
+        )}&completed=true`,
+        {
+          method: "POST",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Failed to update learning progress"
+        );
+      }
+
+      const savedProgress =
+        await response.json();
+
+      console.log(
+        "Progress saved:",
+        savedProgress
+      );
+
+      setCompleted(true);
+
+      setSuccess(
+        "Learning track completed successfully."
+      );
+    } catch (error) {
+      console.error(error);
+
+      setError(
+        "Unable to save your progress. Please try again."
+      );
+    } finally {
+      setSaving(false);
+    }
   };
+
+  /* =========================
+     LOADING
+  ========================== */
 
   if (loading) {
     return (
       <div className="learning-detail-page">
         <div className="learning-detail-loading">
           <div className="learning-detail-spinner" />
+
           <p>
             Preparing your learning track...
           </p>
@@ -101,7 +192,9 @@ function LearningDetail({ skill, onBack }) {
   return (
     <div className="learning-detail-page">
 
-      {/* HEADER */}
+      {/* =========================
+          HEADER
+      ========================== */}
 
       <section className="learning-detail-hero">
 
@@ -116,7 +209,9 @@ function LearningDetail({ skill, onBack }) {
           PERSONALIZED LEARNING TRACK
         </span>
 
-        <h1>{skill}</h1>
+        <h1>
+          {skill}
+        </h1>
 
         <p>
           A focused learning journey designed around
@@ -125,7 +220,29 @@ function LearningDetail({ skill, onBack }) {
 
       </section>
 
-      {/* OVERVIEW */}
+      {/* =========================
+          ERROR
+      ========================== */}
+
+      {error && (
+        <div className="learning-detail-error">
+          {error}
+        </div>
+      )}
+
+      {/* =========================
+          SUCCESS
+      ========================== */}
+
+      {success && (
+        <div className="learning-detail-success">
+          ✓ {success}
+        </div>
+      )}
+
+      {/* =========================
+          OVERVIEW
+      ========================== */}
 
       <section className="learning-detail-overview">
 
@@ -145,28 +262,42 @@ function LearningDetail({ skill, onBack }) {
           </p>
 
           <div className="learning-detail-tags">
-            <span>Beginner Friendly</span>
-            <span>Hands-on</span>
-            <span>Career Focused</span>
+            <span>
+              Beginner Friendly
+            </span>
+
+            <span>
+              Hands-on
+            </span>
+
+            <span>
+              Career Focused
+            </span>
           </div>
 
         </div>
 
         <div className="learning-detail-progress">
 
-          <span>TRACK PROGRESS</span>
+          <span>
+            TRACK PROGRESS
+          </span>
 
           <strong>
             {completed ? "100%" : "0%"}
           </strong>
 
           <div className="learning-detail-progress-track">
+
             <div
               className="learning-detail-progress-fill"
               style={{
-                width: completed ? "100%" : "0%",
+                width: completed
+                  ? "100%"
+                  : "0%",
               }}
             />
+
           </div>
 
           <small>
@@ -179,13 +310,16 @@ function LearningDetail({ skill, onBack }) {
 
       </section>
 
-      {/* ROADMAP */}
+      {/* =========================
+          ROADMAP
+      ========================== */}
 
       <section className="learning-detail-section">
 
         <div className="learning-detail-section-header">
 
           <div>
+
             <span className="section-label">
               LEARNING ROADMAP
             </span>
@@ -197,6 +331,7 @@ function LearningDetail({ skill, onBack }) {
             <p>
               Complete each stage progressively.
             </p>
+
           </div>
 
           <span className="learning-detail-count">
@@ -211,13 +346,17 @@ function LearningDetail({ skill, onBack }) {
 
             <div
               className={`learning-detail-step ${
-                completed ? "completed" : ""
+                completed
+                  ? "completed"
+                  : ""
               }`}
               key={step.number}
             >
 
               <div className="learning-detail-step-number">
-                {completed ? "✓" : step.number}
+                {completed
+                  ? "✓"
+                  : step.number}
               </div>
 
               <div className="learning-detail-step-content">
@@ -234,7 +373,10 @@ function LearningDetail({ skill, onBack }) {
                   {step.description}
                 </p>
 
-                <button className="learning-detail-resource">
+                <button
+                  className="learning-detail-resource"
+                  type="button"
+                >
                   Explore resources →
                 </button>
 
@@ -252,7 +394,9 @@ function LearningDetail({ skill, onBack }) {
 
       </section>
 
-      {/* AI INSIGHT */}
+      {/* =========================
+          AI INSIGHT
+      ========================== */}
 
       <section className="learning-detail-insight">
 
@@ -280,7 +424,9 @@ function LearningDetail({ skill, onBack }) {
 
       </section>
 
-      {/* COMPLETE */}
+      {/* =========================
+          COMPLETE
+      ========================== */}
 
       <section className="learning-detail-footer">
 
@@ -303,12 +449,18 @@ function LearningDetail({ skill, onBack }) {
 
         <button
           className={`learning-detail-complete ${
-            completed ? "completed" : ""
+            completed
+              ? "completed"
+              : ""
           }`}
           onClick={handleComplete}
-          disabled={completed}
+          disabled={
+            completed || saving
+          }
         >
-          {completed
+          {saving
+            ? "Saving..."
+            : completed
             ? "✓ Track Completed"
             : "Mark as Completed"}
         </button>

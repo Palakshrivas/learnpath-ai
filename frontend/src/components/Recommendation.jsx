@@ -5,7 +5,7 @@ import LearningDetail from "./LearningDetail";
 const API_BASE = "http://localhost:8080";
 const LEARNER_ID = 1;
 
-function Recommendation() {
+function Recommendation({ learnerId ,onBack }) {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -21,7 +21,7 @@ function Recommendation() {
       setError("");
 
       const response = await fetch(
-        `${API_BASE}/api/recommendations/${LEARNER_ID}`
+        `${API_BASE}/api/recommendations/${learnerId}`
       );
 
       if (!response.ok) {
@@ -45,6 +45,7 @@ function Recommendation() {
     return (
       <LearningDetail
         skill={selectedSkill}
+        learnerId={learnerId}
         onBack={() => setSelectedSkill(null)}
       />
     );
@@ -69,6 +70,11 @@ function Recommendation() {
       {/* HEADER */}
 
       <section className="recommendation-hero">
+        <button
+          className="recommendation-back-btn"
+            onClick={onBack}>
+  ← Back to Dashboard
+</button>
 
         <div>
           <span className="recommendation-eyebrow">

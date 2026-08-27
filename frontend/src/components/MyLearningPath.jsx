@@ -3,16 +3,32 @@ import "./MyLearningPath.css";
 
 const API_BASE = "http://localhost:8080";
 
-function MyLearningPath() {
+function MyLearningPath({ learnerId,onBack }) {
   const [learningPath, setLearningPath] = useState([]);
   const [progress, setProgress] = useState([]);
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [error, setError] = useState("");
+  const [learner, setLearner] = useState(null);
 
-  const learnerId = 1;
+  const loadLearner = async () => {
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/learners/${learnerId}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setLearner(data);
+    }
+  } catch (err) {
+    console.error("Learner fetch error:", err);
+  }
+};
+  
 
   useEffect(() => {
+    loadLearner();
     loadLearningPath();
   }, []);
 
@@ -112,6 +128,12 @@ function MyLearningPath() {
       {/* HEADER */}
 
       <section className="learning-hero">
+        <button
+  className="learning-back-btn"
+  onClick={onBack}
+>
+  ← Back to Dashboard
+</button>
 
         <div>
           <div className="learning-eyebrow">
@@ -160,7 +182,7 @@ function MyLearningPath() {
 
           <div>
             <span>Learning Goal</span>
-            <strong>Java Full Stack Developer</strong>
+            <strong>{learner?.careerGoal || "Career Goal"}</strong>
           </div>
 
         </div>

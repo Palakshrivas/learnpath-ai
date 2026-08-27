@@ -2,15 +2,31 @@ import { useEffect, useMemo, useState } from "react";
 import "./Progress.css";
 
 const API_BASE = "http://localhost:8080";
-const LEARNER_ID = 1;
 
-function Progress() {
+
+function Progress({ learnerId,onBack  }) {
   const [progress, setProgress] = useState([]);
   const [learningPath, setLearningPath] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [learner, setLearner] = useState(null);
 
+  const loadLearner = async () => {
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/learners/${learnerId}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setLearner(data);
+    }
+  } catch (err) {
+    console.error("Learner fetch error:", err);
+  }
+};
   useEffect(() => {
+    loadLearner();
     loadProgress();
   }, []);
 
@@ -20,8 +36,8 @@ function Progress() {
       setError("");
 
       const [progressResponse, pathResponse] = await Promise.all([
-        fetch(`${API_BASE}/api/progress/${LEARNER_ID}`),
-        fetch(`${API_BASE}/api/learning-path/generate/${LEARNER_ID}`),
+        fetch(`${API_BASE}/api/progress/${learnerId}`),
+        fetch(`${API_BASE}/api/learning-path/generate/${learnerId}`),
       ]);
 
       if (!progressResponse.ok) {
@@ -108,6 +124,12 @@ function Progress() {
       {/* HEADER */}
 
       <section className="progress-hero">
+         <button
+             className="progress-back-btn"
+              onClick={onBack}
+       >
+    ← Back to Dashboard
+  </button>
 
         <div>
           <span className="progress-eyebrow">
@@ -235,7 +257,7 @@ function Progress() {
 
           <div>
             <span>Current Goal</span>
-            <strong>Java Full Stack</strong>
+            <strong>{learner?.careerGoal || "Career Goal"}</strong>
           </div>
 
         </div>

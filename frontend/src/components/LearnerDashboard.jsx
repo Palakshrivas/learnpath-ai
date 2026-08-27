@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./LearnerDashboard.css";
 import LearningMindMap from "./LearningMindMap";
 
-function LearnerDashboard({ onNavigate }) {
+function LearnerDashboard({ onNavigate,learnerId }) {
   const [learner, setLearner] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +29,7 @@ function LearnerDashboard({ onNavigate }) {
   ]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/learners/1")
+    fetch(`http://localhost:8080/api/learners/${learnerId}`)
       .then((response) => response.json())
       .then((data) => {
         setLearner(data);
@@ -40,7 +40,7 @@ function LearnerDashboard({ onNavigate }) {
         setLoading(false);
       });
 
-    fetch("http://localhost:8080/api/recommendations/1")
+    fetch(`http://localhost:8080/api/recommendations/${learnerId}`)
       .then((response) => response.json())
       .then((data) => {
         setRecommendations(data);
@@ -51,7 +51,7 @@ function LearnerDashboard({ onNavigate }) {
         setLoadingRecommendations(false);
       });
 
-    fetch("http://localhost:8080/api/progress/1")
+    fetch(`http://localhost:8080/api/progress/${learnerId}`)
       .then((response) => response.json())
       .then((data) => {
         setProgress(data);
@@ -66,7 +66,7 @@ function LearnerDashboard({ onNavigate }) {
   const generateLearningPath = () => {
     setGenerating(true);
 
-    fetch("http://localhost:8080/api/learning-path/generate/1")
+    fetch(`http://localhost:8080/api/learning-path/generate/${learnerId}`)
       .then((response) => response.json())
       .then((data) => {
         setLearningPath(data);
@@ -135,6 +135,10 @@ function LearnerDashboard({ onNavigate }) {
       setAiLoading(false);
     }
   };
+  const handleLogout = () => {
+  localStorage.removeItem("token");
+  window.location.reload();
+};
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -239,6 +243,12 @@ function LearnerDashboard({ onNavigate }) {
             Settings
           </div>
         </div>
+        <button
+  className="logout-button"
+  onClick={handleLogout}
+>
+  ↪ Logout
+</button>
 
         <div className="profile-mini">
 

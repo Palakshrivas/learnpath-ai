@@ -1569,3 +1569,24 @@ body {
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+.logout-button {
+  width: 100%;
+  margin: 14px 0 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}

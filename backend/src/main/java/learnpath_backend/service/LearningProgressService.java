@@ -13,6 +13,7 @@ public class LearningProgressService {
 
     public LearningProgressService(
             LearningProgressRepository progressRepository) {
+
         this.progressRepository = progressRepository;
     }
 
@@ -25,11 +26,18 @@ public class LearningProgressService {
             String topic,
             boolean completed) {
 
-        LearningProgress progress = new LearningProgress(
-                learnerId,
-                topic,
-                completed
-        );
+        LearningProgress progress =
+                progressRepository
+                        .findByLearnerIdAndTopic(learnerId, topic)
+                        .orElseGet(() ->
+                                new LearningProgress(
+                                        learnerId,
+                                        topic,
+                                        completed
+                                )
+                        );
+
+        progress.setCompleted(completed);
 
         return progressRepository.save(progress);
     }

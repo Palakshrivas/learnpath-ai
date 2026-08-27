@@ -2,15 +2,32 @@ import { useEffect, useMemo, useState } from "react";
 import "./SkillGap.css";
 
 const API_BASE = "http://localhost:8080";
-const LEARNER_ID = 1;
 
-function SkillGap() {
+
+function SkillGap({ learnerId,onBack }) {
   const [skillGap, setSkillGap] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedSkill, setSelectedSkill] = useState(null);
+  const [learner, setLearner] = useState(null);
+
+  const loadLearner = async () => {
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/learners/${learnerId}`
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      setLearner(data);
+    }
+  } catch (err) {
+    console.error("Learner fetch error:", err);
+  }
+};
 
   useEffect(() => {
+    loadLearner();
     loadSkillGap();
   }, []);
 
@@ -20,7 +37,7 @@ function SkillGap() {
       setError("");
 
       const response = await fetch(
-        `${API_BASE}/api/skill-gap/${LEARNER_ID}`
+        `${API_BASE}/api/skill-gap/${learnerId}`
       );
 
       if (!response.ok) {
@@ -91,6 +108,14 @@ function SkillGap() {
       ========================== */}
 
       <section className="skill-gap-hero">
+
+        <button
+          className="skill-gap-back-btn"
+            onClick={onBack}
+        >
+    ← Back to Dashboard
+  </button>
+
         <div>
           <span className="skill-gap-eyebrow">
             AI CAREER ANALYSIS
@@ -232,7 +257,7 @@ function SkillGap() {
 
           <div>
             <span>Career Path</span>
-            <strong>Java Full Stack</strong>
+            <strong>{learner?.careerGoal || "Career Goal"}</strong>
           </div>
 
         </div>
